@@ -1,0 +1,22 @@
+---
+- hosts: all
+  remote_user: root
+
+  tasks:
+  - name: install deb packages
+    apt: pkg={{ item }} state=latest
+    with_items:
+      - python
+      - mc
+      - wget
+      - vim
+    when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+  - name: install rpm packages
+    yum: pkg={{ item }} state=latest
+    with_items:
+      - python
+      - mc
+      - wget
+      - vim
+    when: ansible_distribution == 'CentOS'
